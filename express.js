@@ -6,6 +6,12 @@ const PORT = process.env.PORT ?? 1234
 const app = express()
 app.disable('x-powered-by')   // para quitar en la respuesta de un endpoint el 'X-Powered-By: Express'
 
+app.use((req, res, next) => {
+    console.log('mi primer middleware');
+
+    next()
+    
+})
 
 app.get('/pokemon/ditto', (req, res) => {
     res.json(ditto)    //para mandar jsons ===>  res.json({menssage: "hola"}) 
