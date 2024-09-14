@@ -6,8 +6,8 @@
   "scripts": {
     "dev:1": "nodemon http.js",
     "dev:2": "nodemon routing.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-
+    "dev:3": "node --watch express.js"
+   
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,6 @@
     "standard": "^17.1.0"
   },
   "dependencies": {
-    "express": "file:"
+    "express": "4.21.0"
   }
 }
