@@ -6,12 +6,33 @@ const PORT = process.env.PORT ?? 1234
 const app = express()
 app.disable('x-powered-by')   // para quitar en la respuesta de un endpoint el 'X-Powered-By: Express'
 
-app.use((req, res, next) => {
-    console.log('mi primer middleware');
+//middleware 
 
-    next()
-    
-})
+// app.use((req, res, next) => {
+//     if (req.method !== 'POST') return next()
+//     if (req.headers['content-type' !== 'application/json']) return next()
+
+//     //solo llegan request que son POST y que tienen el header content-type: Application/json
+
+//     let body = ''
+
+//     // escuchar el evento data
+//     req.on('data', chunk => {
+//         body += chunk.toString()
+//     })
+
+//     req.on('end', () => {
+//         const data = JSON.parse(body)
+//         //mutar la request y meter la informacion en el req.body
+//         req.body = data
+//         next()
+//     })
+// })
+
+// express puede hacer ese middleware automaticamente con:
+app.use(express.json())
+
+
 
 app.get('/pokemon/ditto', (req, res) => {
     res.json(ditto)    //para mandar jsons ===>  res.json({menssage: "hola"}) 
@@ -19,16 +40,25 @@ app.get('/pokemon/ditto', (req, res) => {
 
 
 app.post('/pokemon', (req, res) => {
-    let body = ''
-    // escuchar el evento data
-    req.on('data', chunk => {
-        body += chunk.toString()
-    })
+    //req.body deberiamos guardar en  bbdd
+    res.status(201).json(req.body)
 
-    req.on('end', () => {
-        const data = JSON.parse(body)
-        res.status(201).json(data)
-    })
+
+
+    //sin el middleware:
+
+    // let body = ''
+    // // escuchar el evento data
+    // req.on('data', chunk => {
+    //     body += chunk.toString()
+    // })
+
+    // req.on('end', () => {
+    //     const data = JSON.parse(body)
+    //     res.status(201).json(data)
+    // })
+
+
 })
 
 
